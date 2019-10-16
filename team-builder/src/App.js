@@ -12,6 +12,7 @@ const data = [{
 
 function App() {
   const [team, setTeam] = useState(data);
+  const [memberToEdit, setMemberToEdit] = useState("");
 
   const addNewMember = member => {
     const newMember = {
@@ -23,6 +24,16 @@ function App() {
     setTeam([...team, newMember]);
   }
 
+  const editMember = member => {
+      const editedMember = {
+        id: Date.now(),
+        name: member.name,
+        email: member.email,
+        role: member.role
+      }
+    setMemberToEdit(editedMember);
+  }
+
   return (
     <div className="App">
       {team.map(member => (
@@ -30,9 +41,12 @@ function App() {
           key={member.id}
           name={member.name}
           email={member.email}
-          role={member.role}/>
+          role={member.role}
+          editMember={editMember}/>
       ))}
-      <Form addNewMember={addNewMember}/>
+      <Form 
+      addNewMember={addNewMember} 
+      editMember={editMember}/>
     </div>
   );
 }
